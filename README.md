@@ -9,10 +9,10 @@ http://eltonsantos.esy.es/panzer
 # Contato
 Caso queira entrar em contato, acesse minha página: http://jeimison.me.pn/
 
-## Melhorias para próximas versões
+## Melhorias nas próximas alterações
 Segue a descrição da página do Elton, com os acréscimos/mudanças de:
-1. Inteligência para os oponentes;
-2. Dificuldade baseada em nível (provavelmente pontuação);
+1. Inteligência para os oponentes; [OK]
+2. Dificuldade baseada em nível (provavelmente pontuação); [EM PROGRESSO]
 
 Sugestões em aberto!
 
