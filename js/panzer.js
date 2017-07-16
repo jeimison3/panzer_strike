@@ -12,6 +12,7 @@ function Panzer (context, teclado, imagem, imgExplosao) {
   this.velocidade = 0;
   this.vidasExtras = 3;
   this.acabaramVidas = null;
+  this.raioTiro=5;
 
   this.spritesheet = new Spritesheet(context, imagem, 4, 3);
   this.spritesheet.linha = 1;
@@ -62,7 +63,7 @@ Panzer.prototype = {
     
     tiro.x = this.x + 30;
     tiro.y = this.y + 30;
-    tiro.raio = 5;
+    tiro.raio = this.raioTiro;
     tiro.cor = 'yellow';
 
     if (this.direcao == DIRECAO_ESQUERDA) {
@@ -126,7 +127,6 @@ Panzer.prototype = {
           if (panzer.acabaramVidas) panzer.acabaramVidas();
         }
         else {
-          // Recolocar a nave no engine
           panzer.colisor.novoSprite(panzer);
           panzer.animacao.novoSprite(panzer);
           panzer.posicionar();

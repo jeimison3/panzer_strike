@@ -2,12 +2,15 @@ function Inimigo (context, imagem, imgExplosao,panzerUtil) {
   this.context = context;
   this.imagem = imagem;
   this.panzer=panzerUtil;
-  this.direcaoQuant=15;
+  this.direcaoQuant=18;
+  this.probabilidade_seguirPlayer=0.72; //80% = fácil. 69% = normal. 72% = difícil
+  this.dificuldadeBot=0.40; //Probabilidade do robô fugir da "linha de fogo". Use 40% ou 70%.
   this.x = 0;
   this.y = 0;
   this.velocidade = 0;
   
   this.direcaoMov=Math.random()>0.5?1:2;
+  this.isInvertendoRoboDirecao=false;
   this.direcaoCont=0;
   
   this.imgExplosao = imgExplosao;
@@ -22,22 +25,51 @@ function Inimigo (context, imagem, imgExplosao,panzerUtil) {
 Inimigo.prototype = {
   atualizar: function () {
     //this.x += -this.velocidade * this.animacao.decorrido / 2000;
-	
+	var movimento = this.velocidade * this.animacao.decorrido / 4000;
 	if(this.direcaoCont<=this.direcaoQuant){
-		if(this.direcaoMov==1){
-		if(this.x>this.panzer.x)
+		
+		var inimXMaiorPanzerX=this.x>this.panzer.x;
+		var inimYMaiorPanzerY=this.y>this.panzer.y;
+		if(this.isInvertendoRoboDirecao){
+			inimXMaiorPanzerX=!inimXMaiorPanzerX;inimYMaiorPanzerY=!inimYMaiorPanzerY;
+		}
+		
+		if(this.direcaoMov==1){ //Esquerda <-> Direita
+	
+			
+		if(inimXMaiorPanzerX)
 		this.x += -this.velocidade * this.animacao.decorrido / 4000;
 		else this.x += this.velocidade * this.animacao.decorrido / 4000;
 		}
 		
-		else if(this.direcaoMov==2){
-		if(this.y>this.panzer.y)
+		else if(this.direcaoMov==2){ //Cima <-> Baixo
+			/*if((this.dificuldadeBot>=Math.random()) && (!this.isInvertendoRoboDirecao)){//Desviar se
+				inimYMaiorPanzerY=!((Math.abs(this.x-movimento-this.panzer.x)<=this.panzer.raioTiro)
+				&&(Math.abs(this.x+movimento-this.panzer.x)<=this.panzer.raioTiro));
+			}*/
+		
+		
+		//	if((this.dificuldadeBot<=Math.random()) && (!this.isInvertendoRoboDirecao))//Desviar
+		//		inimYMaiorPanzerY=!inimYMaiorPanzerY;
+		
+		if(inimYMaiorPanzerY)
 		this.y += -this.velocidade * this.animacao.decorrido / 4000;
 		else this.y += this.velocidade * this.animacao.decorrido / 4000;
 		}
 		
 		this.direcaoCont++;
-	}else {this.direcaoCont=0;this.direcaoMov=(Math.random()>0.5? 1:2);}
+	}else {
+		this.direcaoCont=0;
+		this.direcaoMov=(Math.random()>0.5? 1:2);
+		//this.isInvertendoRoboDirecao=!(this.probabilidade_seguirPlayer>=Math.random()); //[ALEATÓRIO]
+		
+		if(this.dificuldadeBot>=Math.random()){//Desviar
+		if(this.direcaoMov==1) this.isInvertendoRoboDirecao=((Math.abs(this.x-(movimento*this.direcaoQuant)-this.panzer.x)<=this.panzer.raioTiro)||(Math.abs(this.x+(movimento*this.direcaoQuant)-this.panzer.x)<=this.panzer.raioTiro*this.direcaoQuant));
+		else if(this.direcaoMov==2) this.isInvertendoRoboDirecao=((Math.abs(this.y-(movimento*this.direcaoQuant)-this.panzer.y)<=this.panzer.raioTiro)||(Math.abs(this.y+(movimento*this.direcaoQuant)-this.panzer.y)<=this.panzer.raioTiro*this.direcaoQuant));
+		
+		}else this.isInvertendoRoboDirecao=false;
+		
+		}
 	
     //console.log("this.context.canvas.width "+this.context.canvas.width);
     //console.log("this.x: "+this.x);
