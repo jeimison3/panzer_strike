@@ -1,9 +1,15 @@
-function Inimigo (context, imagem, imgExplosao) {
+function Inimigo (context, imagem, imgExplosao,panzerUtil) {
   this.context = context;
   this.imagem = imagem;
+  this.panzer=panzerUtil;
+  this.direcaoQuant=15;
   this.x = 0;
   this.y = 0;
   this.velocidade = 0;
+  
+  this.direcaoMov=Math.random()>0.5?1:2;
+  this.direcaoCont=0;
+  
   this.imgExplosao = imgExplosao;
 
   this.spritesheet = new Spritesheet(context, imagem, 4, 6);
@@ -15,9 +21,27 @@ function Inimigo (context, imagem, imgExplosao) {
 
 Inimigo.prototype = {
   atualizar: function () {
-    this.x += -this.velocidade * this.animacao.decorrido / 2000;
+    //this.x += -this.velocidade * this.animacao.decorrido / 2000;
+	
+	if(this.direcaoCont<=this.direcaoQuant){
+		if(this.direcaoMov==1){
+		if(this.x>this.panzer.x)
+		this.x += -this.velocidade * this.animacao.decorrido / 4000;
+		else this.x += this.velocidade * this.animacao.decorrido / 4000;
+		}
+		
+		else if(this.direcaoMov==2){
+		if(this.y>this.panzer.y)
+		this.y += -this.velocidade * this.animacao.decorrido / 4000;
+		else this.y += this.velocidade * this.animacao.decorrido / 4000;
+		}
+		
+		this.direcaoCont++;
+	}else {this.direcaoCont=0;this.direcaoMov=(Math.random()>0.5? 1:2);}
+	
     //console.log("this.context.canvas.width "+this.context.canvas.width);
     //console.log("this.x: "+this.x);
+	
     if (this.x <= 0) {
       this.animacao.excluirSprite(this);
       this.colisor.excluirSprite(this);

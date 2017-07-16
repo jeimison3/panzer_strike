@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Panzer Strike | Eltin182</title>
+  <title>Panzer Strike | Eltin182 & jeimison3</title>
   <link rel="stylesheet" href="css/style.css">
 
   <script src="js/animacao.js"></script>
@@ -21,7 +21,7 @@
 <body>
 
   <div class="container">
-    <h1><center>Panzer Strike | Eltin182</center></h1>
+    <h1><center>Panzer Strike | Eltin182 & jeimison3</center></h1>
     <canvas width="650" height="450" id="cenario"></canvas>
     <a id="botao_jogar" href="javascript: iniciarJogo()"></a>
     <hr>
@@ -31,6 +31,9 @@
         <a href="https://github.com/eltonsantos" target="blank">Elton Santos</a> | Linkedin:
         <a href="https://linkedin.com/in/eltonmelosantos" target="blank">Elton Santos</a> | Twitter:
         <a href="https://twitter.com/eltin182" target="blank">@eltin182</a>
+		 <br/> Github:
+        <a href="https://github.com/jeimison3" target="_blank">Jeimison Moreno</a> | LinkedIn:
+        <a href="https://www.linkedin.com/in/jeimison-m" target="_blank">Jeimison Moreno</a>
       </center>
     </h5>
   </div>
@@ -145,7 +148,7 @@
 
     function novoInimigo () {
       var imgInimigo = imagens.inimigo;
-      var inimigo = new Inimigo(context, imgInimigo, imagens.explosao);
+      var inimigo = new Inimigo(context, imgInimigo, imagens.explosao, panzer);
 
       inimigo.velocidade = Math.floor(500+Math.random()*(1000-500+1));
 
