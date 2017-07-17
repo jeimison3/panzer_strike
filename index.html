@@ -39,7 +39,7 @@
   </div>
   
   <script>
-
+	var DEBUG_MODE=true;
     var canvas = document.getElementById('cenario');
     var context = canvas.getContext('2d');
 
@@ -248,6 +248,7 @@
       for (var i in animacao.sprites) {
         if (animacao.sprites[i] instanceof Inimigo)
           animacao.excluirSprite(animacao.sprites[i]);
+		  colisor.excluirSprite(animacao.sprites[i]);
       }
     }
 

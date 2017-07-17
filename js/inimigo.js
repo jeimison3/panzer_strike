@@ -4,7 +4,7 @@ function Inimigo (context, imagem, imgExplosao,panzerUtil) {
   this.panzer=panzerUtil;
   this.direcaoQuant=18;
   this.probabilidade_seguirPlayer=0.72; //80% = fácil. 69% = normal. 72% = difícil
-  this.dificuldadeBot=0.40; //Probabilidade do robô fugir da "linha de fogo". Use 40% ou 70%.
+  this.dificuldadeBot=0.40; //Probabilidade do robô fugir da "linha de fogo". Use 40% (fácil), 70%(intermediário) ou 100%(difícil).
   this.x = 0;
   this.y = 0;
   this.velocidade = 0;
@@ -94,16 +94,17 @@ Inimigo.prototype = {
       {x: this.x+8, y: this.y+3, largura: 53, altura: 45},
       {x: this.x+1, y: this.y+10, largura: 9, altura: 15}
     ];
-    
+   
+	if(DEBUG_MODE){//Se modo depuração está ativo.
     // Desenhando os retângulos para visualização
-    // var ctx = this.context;   
-    // for (var i in rets) {
-    //   ctx.save();
-    //   ctx.strokeStyle = 'yellow';
-    //   ctx.strokeRect(rets[i].x, rets[i].y, rets[i].largura, rets[i].altura);
-    //   ctx.restore();
-    // }
-
+     var ctx = this.context;   
+     for (var i in rets) {
+       ctx.save();
+       ctx.strokeStyle = 'yellow';
+       ctx.strokeRect(rets[i].x, rets[i].y, rets[i].largura, rets[i].altura);
+       ctx.restore();
+     }
+	}
     return rets;
   },
   colidiuCom: function(outro) {
